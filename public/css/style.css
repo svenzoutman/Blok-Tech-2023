@@ -1,0 +1,138 @@
+/* CSS Document */
+
+*, *::after, *::before {
+    box-sizing:border-box;  
+}
+
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    background-color: #fffcf2;
+}
+
+
+dt {
+    font-weight: bold;
+}
+
+
+dd {
+    margin: 0 0 1em 0;
+}
+
+
+nav {
+    background: #171717;
+    margin: auto;
+}
+
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: auto;
+    padding: 1em;
+    justify-content: center;
+
+}
+
+
+nav li {
+    margin: 0;
+    padding: 1em;
+}
+
+
+nav li:last-child {
+    border-right: none;
+}
+
+
+a {
+    text-decoration: none;
+    color: #eb5e28;
+}
+
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+form > * {
+    margin: 1em;
+}
+
+
+button {
+    background: #eb5e28;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 10em;
+    padding: .5em;
+    border: none;
+    color: white;
+    font-size: 1em;
+}
+
+
+input[type=text], input[type=number], textarea {
+    border: 1px solid black;
+    min-width: 27em;
+    padding: .3em;
+}
+
+
+fieldset {
+    max-width: 30em;
+    border: 1px solid black;
+}
+
+
+legend{
+    font-weight: bold;
+}
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1em;
+    background: #eb5e28;
+    text-align: center;
+}
+
+footer a{
+    color: white;
+}
+
+.inner {
+    margin-bottom: 4em;
+}
+
+.columns {
+    display: flex;
+}
+
+.columns > * {
+    padding: 1em;
+}
+
+h1 {
+    text-transform: capitalize;
+    text-align: center;
+    color: #252422;
+}
+
+section {
+    background-color: #ccc5b9;
+    border: 1px black solid;
+    padding: 1em;
+    color: black;
+    box-shadow: 5px 5px black;
+    margin: 1em;
+}

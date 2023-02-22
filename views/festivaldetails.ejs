@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <%- include('includes/head.ejs') -%>
+    </head>
+
+    <body>
+
+        <%- include('includes/header.ejs') -%>
+
+        <div class="inner">
+
+            <h1><%= title %></h1>
+
+            <h2><%= festival.year %></h2>
+
+            <h2>Genres:</h2>
+            <ul>
+                <% festival.genres.forEach(function(genre){ %>
+                <li><%= genre %></li>
+                <% }) %>
+            </ul>
+
+        </div>
+
+        <%- include('includes/footer.ejs') -%>
+
+    </body>
+
+</html>

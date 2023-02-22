@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <%- include('includes/head'); -%>
+    </head>
+
+    <body>
+        <%- include('includes/header'); -%>
+
+        <div class="inner">
+
+            <main>
+                <h1><%= title %></h1>
+
+                <% festivals.forEach(function(festival){ %>
+                <section>
+                    <h2><%= festival.name %></h2>
+                    <h3><%= festival.year %></h3>
+                    <h3>Genres:</h3>
+                    <ul>
+                        <% festival.genres.forEach(function(genre){ %>
+                        <li><%= genre %></li>
+                        <% }) %>
+                    </ul>
+                    <p><a href="/festivals/<%= festival.id %>/<%= festival.slug %>">More info</a></p>
+                </section>
+                <% }) %>
+
+            </main>
+
+        </div>
+        <%- include('includes/footer'); -%>
+    </body>
+
+</html>
