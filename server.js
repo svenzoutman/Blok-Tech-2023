@@ -1,20 +1,26 @@
-/* eslint-disable no-undef */
-// const express = require('express')
-// const app = express()
-// const port = 3000
-
-// app.set('view engine', 'ejs')
-
-// app.get('/', (req, res) => {
-//     res.render('pages/index')
-// })
-// app.listen(port, () => {
-//   console.log(`App listening at port ${port}`)
-// })
-
 const express = require('express');
 const slug = require('slug');
 const arrayify = require('array-back');
+
+
+
+require('dotenv').config({ path: '.env' });
+const PORT = process.env.PORT || 3000;
+ 
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = process.env.DATABASE_URL;
+ 
+const client = new MongoClient(
+ uri, 
+ { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 }
+)
+ 
+client.connect()
+ .then((res) => console.log('@@-- connection established'))
+ .catch((err) => console.log('@@-- error', err))
+
+
+
 
 /*****************************************************
  * Define some constants and variables
@@ -24,14 +30,11 @@ const app = express();
 const port = 3000;
 const genres = ["Techno", "HardTechno", "House", "EDM", "Drum&Bass", "Dubstep", "Hardcore", "Hardstyle", "Pop", "Hiphop"];
 const festivals = [
-        {
-                "id": 1,
-                "slug": "soenda-festival",
-                "name": "Soenda Festival",
-                "year": "2022",
-                "genres": ["Techno", "House", "Disco"],
-        },
+    
 ];
+
+
+
 
 /*****************************************************
  * Middleware
@@ -61,11 +64,16 @@ app.set('view engine', 'ejs');
  ****************************************************/
 
 
-app.get('/',  (req, res) => {
-    // RENDER PAGE
-    const title  = (festivals.length == 0) ? "No festivals were found" : "festivals";
-    res.render('festivallist', {title, festivals});
+app.get('/', async (req, res) => {
+  const title  = (festivals.length == 0) ? "No festivals were found" : "festivals";
+  
+  // RENDER PAGE
+  // const title =  "Succesfully added the festival";
+  res.render('festivallist', {title, festivals})
 });
+
+
+
 
 app.get('/festivals/:festivalId/:slug', (req, res) => {
 
@@ -75,7 +83,7 @@ app.get('/festivals/:festivalId/:slug', (req, res) => {
     console.log(festival);
 
     // RENDER PAGE
-    res.render('festivaldetails', {title: `festivaldetails for ${festival.name}`, festival});
+    res.render('festivaldetails', {title: `${festival.name}`, festival});
 });
 
 
@@ -84,20 +92,62 @@ app.get('/festivals/add', (req, res) => {
 });
 
 
-app.post('/festivals/add', (req, res) => {
-    let festival = {
-        slug: slug(req.body.name),
-        name: req.body.name, 
-        year: req.body.year, 
-        genres: arrayify(req.body.genres), 
-    };
-    console.log("Adding festival: ", festival);
+app.post('/festivals/add', async (req, res) => {
+  
+
+
+    const collection = client.db('test').collection('festivals')
+
+    await collection.insertOne({}, {
+    })
+
+
+    console.log("Adding festival: ", festivals);
     // ADD festival 
-    festivals.push(festival);
+    festivals.push(festivals);
+
+    // RENDER PAGE
+    res.redirect('festivallist', {title: `${festival.name}`, festival});
+});
+
+
+
+
+
+app.get('/festivals/edit', (req, res) => {
+    res.render('editfestival', {title: "EDIT ", genres});
+  });
+
+
+
+app.post('/festivals/edit', async (req, res) => {
+  const {
+        slug,
+        name, 
+        year, 
+        genres } = req.body
+
+    console.log("Adding festival: ", festivals);
+    // ADD festival 
+    festivals.push(festivals);
+
+    const collection = client.db('test').collection('festivals')
+
+    await collection.findOneAndUpdate({}, {
+        $set: {
+            slug: slug,
+            name: name,
+            year: year,
+            genres: genres }
+    })
+
     // RENDER PAGE
     const title =  "Succesfully added the festival";
-    res.render('festivallist', {title, festivals})
+    res.redirect('festivallist')
 });
+
+
+
 
 
 /*****************************************************
