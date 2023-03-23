@@ -17,19 +17,19 @@
             <form action="/festivals/edit" method="post">
                 <div>
                     <label for="name">Name:</label><br>
-                    <input id="name" type="text" name="name" required>
+                    <input id="oldName" type="hidden" name="oldName" required>
                 </div>
                 
                 <div>
                     <label for="year">Year:</label><br>
-                    <input id="year" name="year" type="number" min="2017" max="2023" step="1" value="2022" />
+                    <input id="oldYear" name="oldYear" type="hidden" min="2017" max="2023" step="1" value="old2022" />
                 </div>
 
                 <div>
                     <fieldset>
                         <legend>Genres:</legend>
                         <% genres.forEach(function(genre){ %>
-                        <input type="checkbox" name="genres" value="<%= genre %>" id="<%= genre %>">
+                        <input type="hidden" name="oldGenres" value="<%= genre %>" id="<%= genre %>">
                         <label for="<%= genre %>"><%= genre %></label><br>
                         <% }) %>
                     </fieldset>

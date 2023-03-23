@@ -1,0 +1,48 @@
+<form action="/festivals/festivallist" method="post">
+    <select name="year" id="year" onchange='if(this.value != 0) { this.form.submit(); }'>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+    </select>
+</form>
+
+<form action="/festivals/festivallist" method="post">
+    <fieldset name="genre" id="genre">
+        
+        <input type="checkbox" value="Techno" id="Techno" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="Techno">Techno</label><br>
+        <input type="checkbox" value="HardTechno" id="HardTechno" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="HardTechno">HardTechno</label><br>
+        <input type="checkbox" value="House" id="House" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="House">House</label><br>
+        <input type="checkbox" value="EDM" id="EDM" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="EDM">EDM</label><br>
+        <input type="checkbox" value="Drum&Bass" id="Drum&Bass" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="Drum&Bass">Drum&Bass</label><br>
+        <input type="checkbox" value="Dubstep" id="Dubstep" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="Dubstep">Dubstep</label><br>
+        <input type="checkbox" value="Hardcore" id="Hardcore" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="Hardcore">Hardcore</label><br>
+        <input type="checkbox" value="Hardstyle" id="Hardstyle" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="Hardstyle">Hardstyle</label><br>
+        <input type="checkbox" value="Pop" id="Pop" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="Pop">Pop</label><br>
+        <input type="checkbox" value="Hiphop" id="Hiphop" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <label for="Hiphop">Hiphop</label><br>
+
+    </fieldset>
+</form>
+
+<!-- <form action="/festivals/festivallist" method="post">
+    <fieldset name="genres" id="genres">
+        <legend>Genres:</legend>
+        <% if (genres) { %>
+            <% genres.forEach(genre => { %>
+        <input type="checkbox" name="genres" value="<%= genre %>" id="<%= genre %>" onchange='if(this.value != 0) { this.form.submit(); }'>
+        <label for="<%= genre %>"><%= genre %></label><br>
+        <% }) %>
+        <% } %>
+    </fieldset>
+</form> -->

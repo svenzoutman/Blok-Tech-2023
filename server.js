@@ -4,10 +4,14 @@ const arrayify = require('array-back');
 
 
 
+/*****************************************************
+ * MongoDB Setup
+ ****************************************************/
+
 require('dotenv').config({ path: '.env' });
 const PORT = process.env.PORT || 3000;
  
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = process.env.DATABASE_URL;
  
 const client = new MongoClient(
@@ -28,10 +32,10 @@ client.connect()
 
 const app = express();
 const port = 3000;
+const festivals = [];
 const genres = ["Techno", "HardTechno", "House", "EDM", "Drum&Bass", "Dubstep", "Hardcore", "Hardstyle", "Pop", "Hiphop"];
-const festivals = [
-    
-];
+const collection = client.db('test').collection('festivals')
+
 
 
 
@@ -64,88 +68,149 @@ app.set('view engine', 'ejs');
  ****************************************************/
 
 
-app.get('/', async (req, res) => {
-  const title  = (festivals.length == 0) ? "No festivals were found" : "festivals";
+app.get('/',  (req, res) => {
+  const title =  "festivals";
+    collection.find().toArray()
+      .then(results => {
+        console.log(results)
+    res.render('festivallist', { festivals:results, title, genres})
+    })
+    .catch(error => console.error(error))
+});
+
+
+app.get('/festivals/festivallist',  (req, res) => {
   
-  // RENDER PAGE
-  // const title =  "Succesfully added the festival";
+  collection.find({}).toArray().then((festivals) => {
+    res.locals.title = "Festivals";
+    res.render("festivallist", { festivals });
+   });
+
+});
+
+
+// app.post('/festivals/festivallist',  (req, res) => {
+//   const year = req.body.year;
+//   collection.find({ year }).toArray().then((festivals) => {
+//     res.locals.title = req.body.year;
+//     res.render("festivallist", { festivals, genres });
+//    });
+
+// });
+
+app.post('/festivals/festivallist',  (req, res) => {
+  const genres = req.body.genres;
+  collection.find({ genres }).toArray({}).then((festivals) => {
+    res.locals.title = req.body.genres;
+    res.render("festivallist", { festivals, genres });
+   });
+
+});
+
+
+
+
+// app.get('/festivals/:festivalId', (req, res) => {
+
+//     // FIND festival
+//     const id = req.params.festivalId;
+//     const festival = festivals.find( element => element.id == id);
+//     console.log(festival);
+
+//     // RENDER PAGE
+//     res.render('festivaldetails', {title: `${festival.name}`, festival});
+// });
+
+
+app.get('/festivals/add', (req, res) => {
+
+    res.render('addfestival', {title: "Add a festival", genres});
+});
+
+
+app.post('/festivals/add', async (req, res) => {
+
+  let festival = {
+    slug: slug(req.body.name),
+    name: req.body.name, 
+    year: req.body.year, 
+    genres: arrayify(req.body.genres), 
+};
+  
+  const collection = client.db('test').collection('festivals')
+
+    await collection.insertOne(req.body)
+    .then(result => {
+      console.log(result)
+    })
+    .catch(error => console.error(error))
+
+
+    console.log("Adding festival: ", festival);
+    // ADD festival 
+    festivals.push(festival);
+
+    // RENDER PAGE
+  const title =  "Succesfully added the festival";
   res.render('festivallist', {title, festivals})
 });
 
 
 
-
-app.get('/festivals/:festivalId/:slug', (req, res) => {
-
-    // FIND festival
-    const id = req.params.festivalId;
-    const festival = festivals.find( element => element.id == id);
-    console.log(festival);
-
-    // RENDER PAGE
-    res.render('festivaldetails', {title: `${festival.name}`, festival});
-});
-
-
-app.get('/festivals/add', (req, res) => {
-  res.render('addfestival', {title: "Add a festival", genres});
-});
-
-
-app.post('/festivals/add', async (req, res) => {
-  
-
-
-    const collection = client.db('test').collection('festivals')
-
-    await collection.insertOne({}, {
-    })
-
-
-    console.log("Adding festival: ", festivals);
-    // ADD festival 
-    festivals.push(festivals);
-
-    // RENDER PAGE
-    res.redirect('festivallist', {title: `${festival.name}`, festival});
-});
-
-
-
-
-
-app.get('/festivals/edit', (req, res) => {
-    res.render('editfestival', {title: "EDIT ", genres});
+app.post("/delete", function (req, res) {
+  client.connect((err) => {
+    if (err) throw err;
+    let query = {
+      name: req.body.name,
+      address: req.body.address ? req.body.address : null,
+      telephone: req.body.telephone ? req.body.telephone : null,
+      note: req.body.note ? req.body.note : null,
+    };
+    client
+      .db("test")
+      .collection("festivals")
+      .deleteOne(query, function (err, obj) {
+        if (err) throw err;
+        console.log("1 document deleted");
+        res.send(`Customer ${req.body.name} deleted`);
+      });
   });
-
-
-
-app.post('/festivals/edit', async (req, res) => {
-  const {
-        slug,
-        name, 
-        year, 
-        genres } = req.body
-
-    console.log("Adding festival: ", festivals);
-    // ADD festival 
-    festivals.push(festivals);
-
-    const collection = client.db('test').collection('festivals')
-
-    await collection.findOneAndUpdate({}, {
-        $set: {
-            slug: slug,
-            name: name,
-            year: year,
-            genres: genres }
-    })
-
-    // RENDER PAGE
-    const title =  "Succesfully added the festival";
-    res.redirect('festivallist')
 });
 
+
+
+// app.get('/festivals/edit', (req, res) => {
+
+//     res.render('editfestival', {title: "EDIT ", genres});
+//   });
+
+
+
+// app.post('/festivals/edit', async (req, res) => {
+//   const {
+//         slug,
+//         name, 
+//         year, 
+//         genres } = req.body
+
+//     console.log("Adding festival: ", festivals);
+//     // ADD festival 
+//     festivals.push(festivals);
+
+//     const collection = client.db('test').collection('festivals')
+
+//     await collection.findOneAndUpdate({}, {
+//         $set: {
+//             slug: slug,
+//             name: name,
+//             year: year,
+//             genres: genres }
+//     })
+
+//     // RENDER PAGE
+//     const title =  "Succesfully added the festival";
+//     res.redirect('festivallist')
+// });
 
 
 

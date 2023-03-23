@@ -18,6 +18,7 @@
   "homepage": "https://github.com/svenzoutman/Blok-Tech-2023#readme",
   "dependencies": {
     "array-back": "^6.2.2",
+    "body-parser": "^1.20.2",
     "camelcase": "^7.0.1",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",

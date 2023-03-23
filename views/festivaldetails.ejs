@@ -17,9 +17,11 @@
 
             <h2>Genres:</h2>
             <ul>
-                <% festival.genres.forEach(function(genre){ %>
-                <li><%= genre %></li>
-                <% }) %>
+                <% if (festival.genres) { %>
+                    <% festival.genres.forEach(genre => { %>
+                    <li><%= genre %></li>
+                    <% }) %>
+                    <% } %>
             </ul>
 
         </div>
