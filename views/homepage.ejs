@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <%- include('includes/head'); -%>
+    </head>
+
+    <body>
+        <%- include('includes/header'); -%>
+
+        <div class="inner">
+
+            <main>
+
+                
+
+                <%- include('includes/monthfilter'); -%>
+
+                <h1><%= title %></h1>
+
+                <% festivals.forEach(function(festival){ %>
+                    <section>
+                        <h2><%= festival.name %></h2>
+                        <h3><%= festival.month %></h3>
+                        <h4>Genres</h4>
+                        <ul>
+                            <% if (festival.genres) { %>
+                            <% festival.genres.forEach(genre => { %>
+                            <li ><%= genre %></li>
+                            <% }) %>
+                            <% } %>
+                        </ul>
+                        <h4>Locatie</h4>
+                        <div class="locatie">
+                            <p><%= festival.land %></p>
+                            <p><%= festival.plaats %></p>
+                        </div>
+                    </section>
+                    <% }) %>
+
+            </main>
+
+        </div>
+        <%- include('includes/footer'); -%>
+    </body>
+
+</html>

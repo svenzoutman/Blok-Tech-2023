@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <%- include('includes/head.ejs') -%>
+    </head>
+
+    <body>
+
+        <%- include('includes/header.ejs') -%>
+
+        <div class="inner">
+
+            <h1><%= title %></h1>
+
+            <% users.forEach(function(user){ %>
+                <section class="showUser">
+                    <h2><%= user.name %></h2>
+                    <h3><%= user.year %></h3>
+                    <h4>Genres</h4>
+                    <ul>
+                        <% if (user.genres) { %>
+                        <% user.genres.forEach(genre => { %>
+                        <li ><%= genre %></li>
+                        <% }) %>
+                        <% } %>
+                    </ul>
+                    <a href="/festivals/edituser">Bewerk Gebruiker</a>
+                </section>
+                <% }) %>  
+
+        <%- include('includes/footer.ejs') -%>
+
+    </body>
+
+</html>

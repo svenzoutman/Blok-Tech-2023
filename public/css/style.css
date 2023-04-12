@@ -136,3 +136,62 @@ section {
     box-shadow: 5px 5px black;
     margin: 1em;
 }
+
+section h2 {
+    text-align: center;
+}
+
+section h3,
+section.showUser h3 {
+    text-align: center;
+    color: #eb5e28;
+}
+
+section h4,
+section.showUser h4 {
+    text-align: center;
+    align-items: center;
+}
+
+section div.locatie {
+    display: flex;
+    justify-content: center;
+}
+
+section div.locatie p {
+    padding: .5em;
+    color: #eb5e28;
+}
+
+section ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+section li {
+    list-style: none;
+    margin: .5em;
+    padding: .5em;
+    background-color: #eb5e28;
+    color: #fffcf2;
+}
+
+section img {
+    background-color: #ccc5b9;
+    height: 100px;
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+}
+
+section.showUser {
+    background-color: #ecc99e;
+    color: black;
+    margin: 1em;
+    box-shadow: none;
+    border: none;
+    text-align: center;
+}
+

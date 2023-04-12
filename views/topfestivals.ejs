@@ -12,14 +12,15 @@
 
             <main>
 
-                <%- include('includes/filter'); -%>
+                <%- include('includes/genrefilter'); -%>
                 <h1><%= title %></h1>
 
                 <% festivals.forEach(function(festival){ %>
                 <section>
+                    <img src="<%= festival.img %>" alt="Logo">
                     <h2><%= festival.name %></h2>
                     <h3><%= festival.year %></h3>
-                    <h3>Genres:</h3>
+                    <h4>Genres</h4>
                     <ul>
                         <% if (festival.genres) { %>
                         <% festival.genres.forEach(genre => { %>
@@ -27,7 +28,13 @@
                         <% }) %>
                         <% } %>
                     </ul>
-                    <p><a href="/festivals/<%= festival.name %>">More info</a></p>
+                    <h4>Locatie</h4>
+                    <div class="locatie">
+                        <p><%= festival.land %></p>
+                        <p><%= festival.plaats %></p>
+                    </div>
+                    <p><%= festival.beschrijving %></p>
+                    <p><a href="/festivals/<%= festival.id %>/<%= festival.slug %>">More info</a></p>
                     <form action="" method="post">
                         <button type="submit">Delete</button>
                     </form>

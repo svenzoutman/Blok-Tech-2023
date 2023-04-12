@@ -13,29 +13,28 @@
 
             <h1><%= title %></h1>
 
-
-            <form action="/festivals/edit" method="post">
+            <form action="/festivals/edituser" method="post">
                 <div>
-                    <label for="name">Name:</label><br>
-                    <input id="oldName" type="hidden" name="oldName" required>
+                    <label for="name">Naam:</label><br>
+                    <input id="name" type="text" name="name" required>
                 </div>
                 
                 <div>
-                    <label for="year">Year:</label><br>
-                    <input id="oldYear" name="oldYear" type="hidden" min="2017" max="2023" step="1" value="old2022" />
+                    <label for="year">Geboortejaar:</label><br>
+                    <input id="year" name="year" type="number" min="1950" max="2005" step="1" value="2005" />
                 </div>
 
                 <div>
                     <fieldset>
-                        <legend>Genres:</legend>
+                        <legend>Favoriete Genres:</legend>
                         <% genres.forEach(function(genre){ %>
-                        <input type="hidden" name="oldGenres" value="<%= genre %>" id="<%= genre %>">
+                        <input type="checkbox" name="genres" value="<%= genre %>" id="<%= genre %>">
                         <label for="<%= genre %>"><%= genre %></label><br>
                         <% }) %>
                     </fieldset>
                 </div>
 
-                <button>Add</button>
+                <button type="submit">Add</button>
             </form>
         </div>
 
