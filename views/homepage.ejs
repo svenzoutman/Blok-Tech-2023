@@ -12,11 +12,30 @@
 
             <main>
 
-                
-
                 <%- include('includes/monthfilter'); -%>
 
-                <h1><%= title %></h1>
+                <h1>Aftermovie Verknipt</h1>
+
+                <noscript>
+                    <style type="text/css">
+                        .video-player { display:none; }
+                        h1 { display: none;}
+                    </style>
+                </noscript>
+                 
+                <div class="video-player">
+                    <video id="video">
+                        <source src="/media/bloktechfilmpje.mp4" type="video/mp4">
+                    </video>
+                    <div class="controls">
+                        <button id="play_pause">▶</button>
+                        <button id="stop">⏸︎</button>
+                    </div>
+                </div>
+                
+
+
+                <h2><%= title %></h2>
 
                 <% festivals.forEach(function(festival){ %>
                     <section>

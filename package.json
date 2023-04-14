@@ -28,5 +28,9 @@
     "mongodb": "^5.1.0",
     "nodemon": "^2.0.20",
     "slug": "^8.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "eslint-plugin-react": "^7.32.2"
   }
 }

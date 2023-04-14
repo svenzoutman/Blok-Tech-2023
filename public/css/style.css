@@ -1,14 +1,65 @@
 /* CSS Document */
 
+/*********/
+/* FONTS */
+/*********/
+@font-face {
+	font-family: 'roboto';
+	src: url('../fonts/roboto.woff2') format('woff2'),
+			 url('../fonts/roboto.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
 *, *::after, *::before {
     box-sizing:border-box;  
 }
 
 
+/*********************/
+/* CUSTOM PROPERTIES */
+/*********************/
+
+/* Light mode */
+@media (prefers-color-scheme: light) {
+    :root {
+      --color-text: #000000;
+      --color-background: #FFFFFF;
+      --color-border: #000000;
+      --color-cartborder: #004EFF;
+      --color-carttext: #FFFFFF;
+      --color-button: #FFFFFF;
+      --color-buttonbg: #004EFF;
+      --color-headerp: #004EFF;
+      --color-textalt: #004EFF;
+      --color-brand: #004EFF;
+    }
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+	:root {
+			--color-text: #FFFFFF;
+			--color-background: #000000;
+      --color-border: #FFFFFF;
+      --color-cartborder: #E0A000;
+      --color-carttext: #000000;
+      --color-button: #000000;
+      --color-buttonbg: #E0A000;
+      --color-headerp: #E0A000;
+      --color-textalt: #E0A000;
+      --color-brand: #E0A000;
+	}
+}
+
+
+
+
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: roboto, Verdana, Geneva, Tahoma, sans-serif;
     margin: 0;
-    background-color: #fffcf2;
+    background-color: var(--color-background);
 }
 
 
@@ -51,7 +102,8 @@ nav li:last-child {
 
 a {
     text-decoration: none;
-    color: #eb5e28;
+    color: var(--color-headerp);
+    padding: .5em;
 }
 
 
@@ -66,20 +118,24 @@ form > * {
 
 
 button {
-    background: #eb5e28;
+    background: var(--color-buttonbg);
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 10em;
+    min-width: 5em;
     padding: .5em;
     border: none;
-    color: white;
+    color: var(--color-button);
     font-size: 1em;
+}
+
+label {
+    color: var(--color-text);
 }
 
 
 input[type=text], input[type=number], textarea {
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
     min-width: 27em;
     padding: .3em;
 }
@@ -87,7 +143,7 @@ input[type=text], input[type=number], textarea {
 
 fieldset {
     max-width: 30em;
-    border: 1px solid black;
+    border: 1px solid var(--color-border);
 }
 
 
@@ -107,7 +163,7 @@ footer {
 }
 
 footer a{
-    color: white;
+    color: var(--color-text);
 }
 
 .inner {
@@ -125,15 +181,21 @@ footer a{
 h1 {
     text-transform: capitalize;
     text-align: center;
-    color: #252422;
+    color: var(--color-text);
+}
+
+h2 {
+    text-transform: capitalize;
+    text-align: center;
+    color: var(--color-text);
 }
 
 section {
-    background-color: #ccc5b9;
-    border: 1px black solid;
+    background-color: var(--color-buttonbg);
+    border: 1px var(--color-border) solid;
     padding: 1em;
-    color: black;
-    box-shadow: 5px 5px black;
+    color: var(--color-text);
+    box-shadow: 5px 5px var(--color-border);
     margin: 1em;
 }
 
@@ -144,7 +206,7 @@ section h2 {
 section h3,
 section.showUser h3 {
     text-align: center;
-    color: #eb5e28;
+    color: var(--color-cartborder);
 }
 
 section h4,
@@ -160,7 +222,7 @@ section div.locatie {
 
 section div.locatie p {
     padding: .5em;
-    color: #eb5e28;
+    color: var(--color-text);
 }
 
 section ul {
@@ -194,4 +256,54 @@ section.showUser {
     border: none;
     text-align: center;
 }
+
+.video-player {
+    width: 300px;
+    margin-inline: auto;
+    position: relative;
+}
+
+.video-player video {
+    width: 100%;
+    vertical-align: top;
+}
+
+.controls {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+}
+
+.controls button {
+    margin: .3em;
+    border: 0;
+    background: var(--color-buttonbg);
+    border-radius: 5px;
+    color: var(--color-text);
+    line-height: 30px;
+    text-align: center;
+    vertical-align: top;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+#stop {
+    font-size: 1em;
+    padding-top: 0;
+}
+
+
+
+/*********************/
+/*      States       */
+/*********************/
+
+.controls button:hover {
+    background-color: #ecc99e;
+}
+
+
 
